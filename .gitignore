@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
-
+#eclipse
+.settings/
+bin/
+*.project
 # Log file
 *.log
 #XML files
