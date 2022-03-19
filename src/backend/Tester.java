@@ -48,10 +48,12 @@ public final class Tester {
 		}
 		System.out.println("\n\n");
 	}
-	//This method simulates the controlled progression of a CellSystem g
-	public static void simulateLife(CellSystem g) 
+	//This method plays out a game of life interaction without any user input, meant only for testing purposes
+	public static void playOutGame()
 	{
-	  g.activateSystem(true, false);	
+		CellSystem cs=new CellSystem();
+		cs.activateSystem(true,false);
 	}
+	
 
 }

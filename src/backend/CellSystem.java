@@ -173,5 +173,15 @@ public final class CellSystem
 		 }
 	 }
  }
- 
+ //This method allows you to access the cell DDA of which this System object is comprised
+ public  Cell[][] getGrid()
+ {
+	 return this.getGrid();
+ }
+ //This method returns the cell at a specified x,y location
+ public Cell getCellAt(Point obj)
+ {
+	 return this.grid[obj.x][obj.y];
+ }
+
 }//End of class
