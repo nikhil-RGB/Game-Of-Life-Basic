@@ -1,11 +1,65 @@
 package frontend;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.awt.Point;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import backend.*;
 public final class Board extends JPanel 
 {
-//IIB for any sort of Board object
+private CellSystem cs;
+private JButton[][] buttons;
+//Initializes a Board GUI representation of the CellSystem object passed as an argument to this constructor
 public Board(CellSystem cs)
-{}
+{
+Cell[][] grid=cs.getGrid();
+this.setLayout(new GridLayout(grid.length,grid[0].length));
+this.buttons=new JButton[grid.length][grid[0].length];
+for(int i=0;i<this.buttons.length;++i)
+ {
+	for(int j=0;j<this.buttons[i].length;++j)
+	{
+		JButton op=buttons[i][j]=new JButton();
+		Cell reference=cs.getCellAt(new Point(i,j));
+	    if(reference.getState())
+	    {
+	    	op.setBackground(Color.GREEN);
+	    	op.setText("ALIVE");
+	    	
+	    }
+	    else
+	    {
+	    	op.setBackground(Color.RED);
+	    	op.setText("DEAD");
+	    }
+	   this.add(op);
+	}
+ }
+}
+//This method refreshes the current Board to hold the updated details of it's corresponding CellSystem object
+public void refreshBoard()
+{
+Cell[][] grid=this.cs.getGrid();
+for(int i=0;i<grid.length;++i)
+{
+ for(int j=0;j<grid[0].length;++j)
+ {
+  JButton ref=this.buttons[i][j];//The JButton being referred to here
+  Cell r=grid[i][j];//The Cell object with updated data
+  boolean state_n=r.getState();//new state of cell
+  if(state_n)
+  {
+	  ref.setBackground(Color.GREEN);
+	  ref.setText("ALIVE");
+  }
+  else
+  {
+	  ref.setBackground(Color.RED);
+	  ref.setText("DEAD");
+  }
+ }
+}
+}
 
 }
