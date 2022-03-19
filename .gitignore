@@ -1,9 +1,10 @@
 # Compiled class file
 *.class
+.classpath
 #eclipse
 .settings/
 bin/
-*.project
+.project
 # Log file
 *.log
 #XML files
