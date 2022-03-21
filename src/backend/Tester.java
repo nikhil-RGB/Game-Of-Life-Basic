@@ -54,6 +54,16 @@ public final class Tester {
 		CellSystem cs=new CellSystem();
 		cs.activateSystem(true,false);
 	}
-	
+	//This method generates an initial test configuration CellSystem
+	public CellSystem generateConfig(int x, int y,ArrayList<Point> alive_pos)
+	{
+		CellSystem cs=new CellSystem(x,y);
+		for(Point p:alive_pos)
+		{
+			Cell operate=cs.getCellAt(p);
+			operate.setState(true);
+		}
+		return cs;
+	}
 
 }

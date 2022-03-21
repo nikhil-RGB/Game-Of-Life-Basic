@@ -1,3 +1,4 @@
+//Objects of this class manage "Board" instances, which in turn, manage a CellSystem
 package frontend;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -8,6 +9,8 @@ import javax.swing.event.*;
 import backend.*;
 public final class Board extends JPanel 
 {
+
+private static final long serialVersionUID = 1499908L;
 private CellSystem cs;
 private JButton[][] buttons;
 //Initializes a Board GUI representation of the CellSystem object passed as an argument to this constructor
@@ -16,7 +19,7 @@ public Board(CellSystem cs)
 Cell[][] grid=cs.getGrid();
 this.setLayout(new GridLayout(grid.length,grid[0].length));
 this.buttons=new JButton[grid.length][grid[0].length];
-for(int i=0;i<this.buttons.length;++i)
+ for(int i=0;i<this.buttons.length;++i)
  {
 	for(int j=0;j<this.buttons[i].length;++j)
 	{
@@ -60,6 +63,11 @@ for(int i=0;i<grid.length;++i)
   }
  }
 }
+}
+//This method returns the current CellSystem object being utilized
+public CellSystem getCellSystem()
+{
+ return this.cs;	
 }
 
 }

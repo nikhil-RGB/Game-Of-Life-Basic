@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import java.awt.Point;
+import frontend.Board;
+
 //This class mantains an entire system for cells
 public final class CellSystem 
 {
-	
+	private Board associate;//the board associated with this CellSystem, may be null, and is an optional
+	//initialization as the backend can run without the frontend GUI representation as well
 	private Cell[][] grid;//grid of cells
 	private int generation;//Current generation number
 	private EnvironmentControlThread progressionControl;
@@ -118,6 +121,12 @@ public final class CellSystem
 			allow_next_gen=false; 
 		    nextGeneration();
 		    refreshSystem();
+		    if(associate!=null)
+		    {
+		    	//Code to refresh GUI representation associated with this Board object
+		    	associate.refreshBoard();
+		    }
+		    generation++;//incrementing the generation number
 		    if(!canSystemContinue())
 		    {
 		    	JOptionPane.showMessageDialog(null,"All cells have died/System force killed");
@@ -131,7 +140,7 @@ public final class CellSystem
   this.new EnvironmentControlThread();
   this.progressionControl.start();
  }
- //This method actiavtes and initializes a rogression with some pre defined env values
+ //This method actiavtes and initializes a progression with some pre defined env values
  public void activateSystem(boolean auto,boolean cont_manual)
  {
 	 this.new EnvironmentControlThread(auto,cont_manual);
@@ -182,6 +191,16 @@ public final class CellSystem
  public Cell getCellAt(Point obj)
  {
 	 return this.grid[obj.x][obj.y];
+ }
+ //This method returns the GUI component associated with this CellSystem, may return null
+ public Board getAssociate()
+ {
+	 return this.associate;
+ }
+ //This method sets the value of the optional member variable associate
+ public void setAssociate(Board b)
+ {
+	 this.associate=b;
  }
 
 }//End of class
