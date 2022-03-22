@@ -65,5 +65,10 @@ public final class Tester {
 		}
 		return cs;
 	}
+	//This is a new testing method
+	public void randomTest()
+	{
+		//Test statements here
+	}
 
 }
