@@ -16,6 +16,7 @@ private JButton[][] buttons;
 //Initializes a Board GUI representation of the CellSystem object passed as an argument to this constructor
 public Board(CellSystem cs)
 {
+this.cs=cs;
 Cell[][] grid=cs.getGrid();
 this.setLayout(new GridLayout(grid.length,grid[0].length));
 this.buttons=new JButton[grid.length][grid[0].length];

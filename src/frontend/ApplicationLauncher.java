@@ -27,13 +27,19 @@ public final class ApplicationLauncher {
 	}
 	//This method runs a test simulation of a randomly enerated board
 	public static void runTest()
-	{
+	{   
+		//Test statement
+		System.out.println("first line reached");
 		CellSystem cs=new CellSystem(10,10);
+		System.out.println("Cell System initialized");
 		ArrayList<Point> arr=Tester.generateLiveList(10);
+		System.out.println("List of live cells generated");
 		for(Point p:arr)
 		{
 		 cs.getCellAt(p).setState(true);
 		}
+		System.out.println("Launch method reached");//This statement doesnt seem to be getting executed
+		//The statement above prints only if the function which launches the GUI is reached.
 		launchGameboardTest(cs);
 	}
 }

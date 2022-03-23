@@ -76,10 +76,11 @@ public final class Tester {
 			int x=(int)(Math.random()*10);
 			int y=(int)(Math.random()*10);
 			pp=new Point(x,y);
-			INNER:
+			
 			if(!alive.contains(pp))
 			{
 			  	alive.add(pp);
+			  	break;//Exit do-while loop
 			}
 			}
 			while(alive.contains(pp));
