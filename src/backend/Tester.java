@@ -65,6 +65,27 @@ public final class Tester {
 		}
 		return cs;
 	}
+	//this function generates a list of points at which you'd like the cells to be alive
+	public static ArrayList<Point> generateLiveList(int size)
+	{
+		ArrayList<Point> alive=new ArrayList<>(0);
+		for(int i=0;i<size;++i)
+		{
+			Point pp=null;
+			do {
+			int x=(int)(Math.random()*10);
+			int y=(int)(Math.random()*10);
+			pp=new Point(x,y);
+			INNER:
+			if(!alive.contains(pp))
+			{
+			  	alive.add(pp);
+			}
+			}
+			while(alive.contains(pp));
+		}
+		return alive;
+	}
 	//This is a new testing method
 	public void randomTest()
 	{

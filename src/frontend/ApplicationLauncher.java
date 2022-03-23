@@ -8,15 +8,15 @@ public final class ApplicationLauncher {
     //This method launches the SWING application 
 	public static void main(String[] args) 
 	{
-     
+     SwingUtilities.invokeLater(()->{
+    	 runTest();
+     });
 		
 	}
 	
-	//This method initializes and launches the main BOARD GUI, still n development and testing
+	//This method initializes and launches the main BOARD GUI, still in development and testing
 	public static void launchGameboardTest(CellSystem oper)
 	{
-		ArrayList<Point> alive=new ArrayList<>(0);
-		Point[] arr= {new Point(5,5),new Point(5,4),new Point(5,6),new Point(5,7),new Point(6,5),new Point(6,7)};
 		Board b=new Board(oper);
 		JFrame jfrm=new JFrame("Game-of-Life board");
 	    jfrm.add(b,BorderLayout.CENTER);
@@ -25,5 +25,15 @@ public final class ApplicationLauncher {
 	    jfrm.setSize(800,600);
 	    jfrm.setVisible(true);
 	}
-
+	//This method runs a test simulation of a randomly enerated board
+	public static void runTest()
+	{
+		CellSystem cs=new CellSystem(10,10);
+		ArrayList<Point> arr=Tester.generateLiveList(10);
+		for(Point p:arr)
+		{
+		 cs.getCellAt(p).setState(true);
+		}
+		launchGameboardTest(cs);
+	}
 }
