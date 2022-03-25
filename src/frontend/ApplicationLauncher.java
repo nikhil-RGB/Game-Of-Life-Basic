@@ -24,8 +24,9 @@ public final class ApplicationLauncher {
 	    oper.activateSystem(true, false);
 	    jfrm.setSize(800,600);
 	    jfrm.setVisible(true);
+	    jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	//This method runs a test simulation of a randomly enerated board
+	//This method runs a test simulation of a randomly generated board
 	public static void runTest()
 	{   
 		//Test statement
@@ -41,5 +42,18 @@ public final class ApplicationLauncher {
 		System.out.println("Launch method reached");//This statement doesnt seem to be getting executed
 		//The statement above prints only if the function which launches the GUI is reached.
 		launchGameboardTest(cs);
+	}
+	//This method creates the side-panel for the main board
+	public JPanel createSidePanel(Board b)
+	{
+		JPanel jpan=new JPanel();
+		jpan.setLayout(new BoxLayout(jpan,BoxLayout.Y_AXIS));
+		JButton jbc=new JButton("Progress to next Generation");
+		jbc.setToolTipText("<html>This button allows the user to move to the next generation<br>"
+				+ "Will be disabled if automatic progression is enabled");
+	    JCheckBox jc=new JCheckBox("Allow automatic progression",false);
+	    jc.setToolTipText("Allows user to progress from one generation to another without manually clicking the \"progress\" button");
+	    
+	    return jpan;
 	}
 }
