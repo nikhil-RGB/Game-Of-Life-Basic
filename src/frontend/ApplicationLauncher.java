@@ -47,12 +47,13 @@ public final class ApplicationLauncher {
 	public JPanel createSidePanel(Board b)
 	{
 		JPanel jpan=new JPanel();
-		jpan.setLayout(new BoxLayout(jpan,BoxLayout.Y_AXIS));
+		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
 		JButton jbc=new JButton("Progress to next Generation");
 		jbc.setToolTipText("<html>This button allows the user to move to the next generation<br>"
 				+ "Will be disabled if automatic progression is enabled");
 	    JCheckBox jc=new JCheckBox("Allow automatic progression",false);
 	    jc.setToolTipText("Allows user to progress from one generation to another without manually clicking the \"progress\" button");
+	    JCheckBox jcab=new JCheckBox("Automatic progress");
 	    
 	    return jpan;
 	}
