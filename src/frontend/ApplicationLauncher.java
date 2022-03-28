@@ -1,10 +1,15 @@
 package frontend;
 import backend.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.*;
 import javax.swing.*;
 //This class deals with 
 public final class ApplicationLauncher {
+	//standard font
+	public static Font font=new Font("algerian",Font.BOLD,18);
     //This method launches the SWING application 
 	public static void main(String[] args) 
 	{
@@ -44,8 +49,9 @@ public final class ApplicationLauncher {
 		launchGameboardTest(cs);
 	}
 	//This method creates the side-panel for the main board
-	public JPanel createSidePanel(Board b)
+	public JPanel createSidePanel(final Board b)
 	{
+		final CellSystem control=b.getCellSystem();
 		JPanel jpan=new JPanel();
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
 		JButton jbc=new JButton("Progress to next Generation");
@@ -54,6 +60,27 @@ public final class ApplicationLauncher {
 	    JCheckBox jc=new JCheckBox("Allow automatic progression",false);
 	    jc.setToolTipText("Allows user to progress from one generation to another without manually clicking the \"progress\" button");
 	    JCheckBox jcab=new JCheckBox("Automatic progress");
+	    JTextArea jtxt=new JTextArea("Log for Generation progression");
+	    JLabel jlab=new JLabel("Current Generation: 0");
+	    ItemListener checkbox= (ev)->//lambda expression for item listener with respect to item changes
+	    {
+	    if(ev.getStateChange()==ItemEvent.SELECTED)
+	    {
+	    	control.setAutomaticGrowth(true);
+	    	jbc.setEnabled(false);
+	    	
+	    }
+	    else
+	    {
+	    	control.setAutomaticGrowth(false);
+	    	jbc.setEnabled(true);
+	    }
+	    };
+	    ActionListener proceedBttn=(ev)->{//lambda expression for proceeding with next generation manually
+	    	control.setAllowNextGen(true);
+	    };
+	    jcab.addItemListener(checkbox);
+	    jbc.addActionListener(proceedBttn);
 	    
 	    return jpan;
 	}
