@@ -51,17 +51,19 @@ public final class ApplicationLauncher {
 	//This method creates the side-panel for the main board
 	public JPanel createSidePanel(final Board b)
 	{
-		final CellSystem control=b.getCellSystem();
-		JPanel jpan=new JPanel();
+		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
+		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
-		JButton jbc=new JButton("Progress to next Generation");
+		JButton jbc=new JButton("Next Generation");//This button will be used to progess to the next generation(manually)
 		jbc.setToolTipText("<html>This button allows the user to move to the next generation<br>"
 				+ "Will be disabled if automatic progression is enabled");
-	    JCheckBox jc=new JCheckBox("Allow automatic progression",false);
-	    jc.setToolTipText("Allows user to progress from one generation to another without manually clicking the \"progress\" button");
-	    JCheckBox jcab=new JCheckBox("Automatic progress");
-	    JTextArea jtxt=new JTextArea("Log for Generation progression");
+	    jbc.setToolTipText("Allows user to auto-progress from one generation to another without manually clicking the \"progress\" button");
+	    JCheckBox jcab= new JCheckBox("Automatic progress");
+	    jcab.setFont(font);
+	    JTextArea jtxt= new JTextArea("Log for Generation progression");
+	    jtxt.setFont(font);
 	    JLabel jlab=new JLabel("Current Generation: 0");
+	    jlab.setFont(font);
 	    ItemListener checkbox= (ev)->//lambda expression for item listener with respect to item changes
 	    {
 	    if(ev.getStateChange()==ItemEvent.SELECTED)
@@ -81,7 +83,12 @@ public final class ApplicationLauncher {
 	    };
 	    jcab.addItemListener(checkbox);
 	    jbc.addActionListener(proceedBttn);
-	    
+        //adding components to the JPanel
+	    jpan.add(jbc);
+        jpan.add(Box.createRigidArea(new Dimension(15,15)));
+        jpan.add(jcab);
+        //jpan now contains all control/responsive components
+        
 	    return jpan;
 	}
 }
