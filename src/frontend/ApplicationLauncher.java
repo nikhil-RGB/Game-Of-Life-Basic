@@ -24,7 +24,9 @@ public final class ApplicationLauncher {
 	{
 		Board b=new Board(oper);
 		JFrame jfrm=new JFrame("Game-of-Life board");
+		JPanel side_panel=ApplicationLauncher.createSidePanel(b);
 	    jfrm.add(b,BorderLayout.CENTER);
+	    jfrm.add(side_panel,BorderLayout.EAST);
 	    oper.setAssociate(b);
 	    oper.activateSystem(true, false);
 	    jfrm.setSize(800,600);
@@ -49,8 +51,10 @@ public final class ApplicationLauncher {
 		launchGameboardTest(cs);
 	}
 	//This method creates the side-panel for the main board
-	public JPanel createSidePanel(final Board b)
+	public static JPanel createSidePanel(final Board b)
 	{
+		JPanel main_p=new JPanel();//main panel
+		main_p.setLayout(new BoxLayout(main_p,BoxLayout.Y_AXIS));
 		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
@@ -88,7 +92,14 @@ public final class ApplicationLauncher {
         jpan.add(Box.createRigidArea(new Dimension(15,15)));
         jpan.add(jcab);
         //jpan now contains all control/responsive components
-        
+        //Now, arrange components in main_panel
+        main_p.add(jlab);
+        main_p.add(Box.createRigidArea(new Dimension(15,15)));
+        main_p.add(jbc);
+        main_p.add(Box.createRigidArea(new Dimension(15,15)));
+        main_p.add(jcab);
+        main_p.add(Box.createRigidArea(new Dimension(15,15)));
+        main_p.add(jtxt);
 	    return jpan;
 	}
 }

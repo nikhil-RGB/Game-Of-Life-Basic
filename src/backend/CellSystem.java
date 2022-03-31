@@ -1,12 +1,12 @@
 package backend;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import java.awt.Point;
 import frontend.Board;
 
-//This class mantains an entire system for cells
+//This class maintains an entire system for cells
 public final class CellSystem 
 {
 	private Board associate;//the board associated with this CellSystem, may be null, and is an optional
@@ -140,7 +140,7 @@ public final class CellSystem
   this.new EnvironmentControlThread();
   this.progressionControl.start();
  }
- //This method actiavtes and initializes a progression with some pre defined env values
+ //This method actiavtes and initializes a progression with some pre-defined env values
  public void activateSystem(boolean auto,boolean cont_manual)
  {
 	 this.new EnvironmentControlThread(auto,cont_manual);
