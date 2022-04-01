@@ -14,7 +14,11 @@ public final class CellSystem
 	private Cell[][] grid;//grid of cells
 	private int generation;//Current generation number
 	private EnvironmentControlThread progressionControl;
+	private volatile String log;//log for cell system
 	//IIB
+	{
+		this.log="";
+	}
 	//Standard constructor, creates a 10*10 cell grid system with all cells set to state
 	//"DEAD".
 	public CellSystem()
@@ -53,15 +57,29 @@ public final class CellSystem
 	    }
 	}
 	//forces the cell-system to refresh itself by calling each-cell's refresh method
+	//all GUI related and other generation-related information is refreshed/updated by this method
 	public void refreshSystem()
 	{
+	    	
+		this.clearLog();//log gets cleared whenever the generation proceeds because this function
+		//is called whenever nextGeneration() is called
 		for(int i=0;i<grid.length;++i)
 	    {
 	    	for(int j=0;j<grid[0].length;++j)
 	    	{
-	    	 grid[i][j].refresh();
+	    	 Cell oper=grid[i][j];
+	    	 String init=oper.getState()?"ALIVE":"DEAD";
+	    	 oper.refresh();
+	    	 String ninit=oper.getState()?"ALIVE":"DEAD";
+	    	 if(!ninit.equalsIgnoreCase(ninit))
+	    	 {
+	    		 this.appendLog("Cell At\n"+((oper.getPosition().x)+1)+" "+((oper.getPosition().y)+1)+"\n"+
+	    	     "switched from state "+init+" to "+ninit+"\n");
+	    	 }
 	    	}
 	    }
+		generation++;//incrementing the generation number
+			
 	}
 	public boolean canSystemContinue()
 	{
@@ -126,7 +144,7 @@ public final class CellSystem
 		    	//Code to refresh GUI representation associated with this Board object
 		    	associate.refreshBoard();
 		    }
-		    generation++;//incrementing the generation number
+		    
 		    if(!canSystemContinue())
 		    {
 		    	JOptionPane.showMessageDialog(null,"All cells have died/System force killed");
@@ -140,7 +158,7 @@ public final class CellSystem
   this.new EnvironmentControlThread();
   this.progressionControl.start();
  }
- //This method actiavtes and initializes a progression with some pre-defined env values
+ //This method activates and initializes a progression with some pre-defined env values
  public void activateSystem(boolean auto,boolean cont_manual)
  {
 	 this.new EnvironmentControlThread(auto,cont_manual);
@@ -202,6 +220,31 @@ public final class CellSystem
  {
 	 this.associate=b;
  }
- 
-
+ //This method returns the current generation number
+ public int getGeneration()
+ {
+	 return this.generation;
+ }
+ //This method returns the log for this CellSystem
+ public String getLog()
+ {
+	 return this.log;
+ }
+ //This method allows you to set the log for this CellSystem
+ //Explicit calls to this function outside the defining class are discouraged, as the system was designed so 
+ //that CellSystem manages it's own backend log
+ public void setLog(String nlog)
+ {
+	 this.log=nlog;
+ }
+ //This method clears the log
+ public void clearLog()
+ {
+	 this.log="";
+ }
+ //This method appends a String to the log(does not add new line)
+ public void appendLog(String append)
+ {
+	 this.log+=append;
+ }
 }//End of class

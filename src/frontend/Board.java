@@ -73,6 +73,7 @@ for(int i=0;i<grid.length;++i)
 }
 if(text!=null)
 {
+this.refreshSideComponents();
 //refresh Side Panel components.	
 }
 }
@@ -86,7 +87,10 @@ public void refreshSideComponents()
  }
  JTextArea jtc=(JTextArea)(this.text.get(0));
  JLabel genLab=(JLabel)(this.text.get(1));
- 
+ CellSystem cs=this.getCellSystem();
+ genLab.setText("Current generation: "+cs.getGeneration());
+ jtc.append(cs.getLog());
+ System.out.println("Board's  log is "+cs.getLog());
 }
 //This method returns the current CellSystem object being utilized
 public CellSystem getCellSystem()

@@ -9,7 +9,7 @@ import javax.swing.*;
 //This class deals with 
 public final class ApplicationLauncher {
 	//standard font
-	public static Font font=new Font("algerian",Font.BOLD,18);
+	public static Font font=new Font("algerian",Font.BOLD,14);
     //This method launches the SWING application 
 	public static void main(String[] args) 
 	{
@@ -26,7 +26,7 @@ public final class ApplicationLauncher {
 		JFrame jfrm=new JFrame("Game-of-Life board");
 		JPanel side_panel=ApplicationLauncher.createSidePanel(b);
 	    jfrm.add(b,BorderLayout.CENTER);
-	    jfrm.add(side_panel,BorderLayout.EAST);
+	    jfrm.add(side_panel,BorderLayout.NORTH);
 	    oper.setAssociate(b);
 	    oper.activateSystem(true, false);
 	    jfrm.setSize(800,600);
@@ -58,13 +58,14 @@ public final class ApplicationLauncher {
 		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
-		JButton jbc=new JButton("Next Generation");//This button will be used to progess to the next generation(manually)
+		JButton jbc=new JButton("Next Generation");//This button will be used to progress to the next generation(manually)
 		jbc.setToolTipText("<html>This button allows the user to move to the next generation<br>"
 				+ "Will be disabled if automatic progression is enabled");
 	    jbc.setToolTipText("Allows user to auto-progress from one generation to another without manually clicking the \"progress\" button");
-	    JCheckBox jcab= new JCheckBox("Automatic progress");
+	    JCheckBox jcab= new JCheckBox("Automatic progress",true);
 	    jcab.setFont(font);
 	    JTextArea jtxt= new JTextArea("Log for Generation progression");
+	    jtxt.setEditable(false);
 	    jtxt.setFont(font);
 	    JLabel jlab=new JLabel("Current Generation: 0");
 	    jlab.setFont(font);
@@ -89,17 +90,19 @@ public final class ApplicationLauncher {
 	    jbc.addActionListener(proceedBttn);
         //adding components to the JPanel
 	    jpan.add(jbc);
-        jpan.add(Box.createRigidArea(new Dimension(15,15)));
+        jpan.add(Box.createRigidArea(new Dimension(5,15)));
         jpan.add(jcab);
         //jpan now contains all control/responsive components
         //Now, arrange components in main_panel
         main_p.add(jlab);
-        main_p.add(Box.createRigidArea(new Dimension(15,15)));
+        main_p.add(Box.createRigidArea(new Dimension(5,15)));
         main_p.add(jbc);
-        main_p.add(Box.createRigidArea(new Dimension(15,15)));
+        main_p.add(Box.createRigidArea(new Dimension(5,15)));
         main_p.add(jcab);
-        main_p.add(Box.createRigidArea(new Dimension(15,15)));
+        main_p.add(Box.createRigidArea(new Dimension(5,15)));
         main_p.add(jtxt);
-	    return jpan;
+        //set associated text components to JPanel
+        b.setAssociatedTextComponents(new JComponent[] {jtxt,jlab});
+	    return main_p;
 	}
 }
