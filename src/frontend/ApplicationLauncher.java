@@ -54,7 +54,7 @@ public final class ApplicationLauncher {
 	public static JPanel createSidePanel(final Board b)
 	{
 		JPanel main_p=new JPanel();//main panel
-		main_p.setLayout(new GridLayout(1,3));
+		main_p.setLayout(new GridLayout(2,3));
 		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
