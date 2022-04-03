@@ -14,11 +14,6 @@ public final class CellSystem
 	private Cell[][] grid;//grid of cells
 	private int generation;//Current generation number
 	private EnvironmentControlThread progressionControl;
-	private volatile String log;//log for cell system
-	//IIB
-	{
-		this.log="";
-	}
 	//Standard constructor, creates a 10*10 cell grid system with all cells set to state
 	//"DEAD".
 	public CellSystem()
@@ -59,24 +54,14 @@ public final class CellSystem
 	//forces the cell-system to refresh itself by calling each-cell's refresh method
 	//all GUI related and other generation-related information is refreshed/updated by this method
 	public void refreshSystem()
-	{
-	    	
-		this.clearLog();//log gets cleared whenever the generation proceeds because this function
-		//is called whenever nextGeneration() is called
+	{		
 		for(int i=0;i<grid.length;++i)
 	    {
 	    	for(int j=0;j<grid[0].length;++j)
 	    	{
 	    	 Cell oper=grid[i][j];
-	    	 String init=oper.getState()?"ALIVE":"DEAD";
 	    	 oper.refresh();
-	    	 String ninit=oper.getState()?"ALIVE":"DEAD";
-	    	 if(!ninit.equalsIgnoreCase(ninit))
-	    	 {
-	    		 this.appendLog("Cell At\n"+((oper.getPosition().x)+1)+" "+((oper.getPosition().y)+1)+"\n"+
-	    	     "switched from state "+init+" to "+ninit+"\n");
 	    	 }
-	    	}
 	    }
 		generation++;//incrementing the generation number
 			
@@ -225,26 +210,5 @@ public final class CellSystem
  {
 	 return this.generation;
  }
- //This method returns the log for this CellSystem
- public String getLog()
- {
-	 return this.log;
- }
- //This method allows you to set the log for this CellSystem
- //Explicit calls to this function outside the defining class are discouraged, as the system was designed so 
- //that CellSystem manages it's own backend log
- public void setLog(String nlog)
- {
-	 this.log=nlog;
- }
- //This method clears the log
- public void clearLog()
- {
-	 this.log="";
- }
- //This method appends a String to the log(does not add new line)
- public void appendLog(String append)
- {
-	 this.log+=append;
- }
+
 }//End of class

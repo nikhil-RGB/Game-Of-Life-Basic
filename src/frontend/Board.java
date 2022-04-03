@@ -85,12 +85,9 @@ public void refreshSideComponents()
  {
 	 throw new NullPointerException();
  }
- JTextArea jtc=(JTextArea)(this.text.get(0));
- JLabel genLab=(JLabel)(this.text.get(1));
+ JLabel genLab=(JLabel)(this.text.get(0));
  CellSystem cs=this.getCellSystem();
  genLab.setText("Current generation: "+cs.getGeneration());
- jtc.append(cs.getLog());
- System.out.println("Board's  log is "+cs.getLog());
 }
 //This method returns the current CellSystem object being utilized
 public CellSystem getCellSystem()

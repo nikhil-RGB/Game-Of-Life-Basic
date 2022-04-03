@@ -54,7 +54,7 @@ public final class ApplicationLauncher {
 	public static JPanel createSidePanel(final Board b)
 	{
 		JPanel main_p=new JPanel();//main panel
-		main_p.setLayout(new BoxLayout(main_p,BoxLayout.Y_AXIS));
+		main_p.setLayout(new GridLayout(1,3));
 		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
@@ -64,9 +64,6 @@ public final class ApplicationLauncher {
 	    jbc.setToolTipText("Allows user to auto-progress from one generation to another without manually clicking the \"progress\" button");
 	    JCheckBox jcab= new JCheckBox("Automatic progress",true);
 	    jcab.setFont(font);
-	    JTextArea jtxt= new JTextArea("Log for Generation progression");
-	    jtxt.setEditable(false);
-	    jtxt.setFont(font);
 	    JLabel jlab=new JLabel("Current Generation: 0");
 	    jlab.setFont(font);
 	    ItemListener checkbox= (ev)->//lambda expression for item listener with respect to item changes
@@ -100,9 +97,9 @@ public final class ApplicationLauncher {
         main_p.add(Box.createRigidArea(new Dimension(5,15)));
         main_p.add(jcab);
         main_p.add(Box.createRigidArea(new Dimension(5,15)));
-        main_p.add(jtxt);
+        
         //set associated text components to JPanel
-        b.setAssociatedTextComponents(new JComponent[] {jtxt,jlab});
+        b.setAssociatedTextComponents(new JComponent[] {jlab});
 	    return main_p;
 	}
 }
