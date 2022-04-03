@@ -6,17 +6,19 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 //This class deals with 
 public final class ApplicationLauncher {
 	//standard font
-	public static Font font=new Font("algerian",Font.BOLD,14);
+	public static Border bord=new RoundedBorder(6);
+	public static Font font=new Font("SansSerif",Font.BOLD,14);
     //This method launches the SWING application 
 	public static void main(String[] args) 
 	{
      SwingUtilities.invokeLater(()->{
     	 runTest();
      });
-		
+	
 	}
 	
 	//This method initializes and launches the main BOARD GUI, still in development and testing
@@ -54,6 +56,7 @@ public final class ApplicationLauncher {
 	public static JPanel createSidePanel(final Board b)
 	{
 		JPanel main_p=new JPanel();//main panel
+		main_p.setBackground(Color.BLACK);
 		GridBagLayout p=new GridBagLayout();
 		main_p.setLayout(p);
 		GridBagConstraints gc1=new GridBagConstraints();
@@ -72,20 +75,26 @@ public final class ApplicationLauncher {
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
 		JButton jbc=new JButton("Next Generation");//This button will be used to progress to the next generation(manually)
+		jbc.setBackground(Color.BLACK);
+		jbc.setForeground(Color.WHITE);
+		jbc.setBorder(bord);
 		jbc.setToolTipText("<html>This button allows the user to move to the next generation<br>"
 				+ "Will be disabled if automatic progression is enabled");
 	    jbc.setToolTipText("Allows user to auto-progress from one generation to another without manually clicking the \"progress\" button");
 	    JCheckBox jcab= new JCheckBox("Automatic progress",true);
+	    jcab.setBorder(bord);
+	    jcab.setBackground(Color.GRAY);
 	    jcab.setFont(font);
 	    JLabel jlab=new JLabel("Current Generation: 0");
+	    jlab.setBorder(bord);
 	    jlab.setFont(font);
+	    jlab.setForeground(Color.WHITE);
 	    ItemListener checkbox= (ev)->//lambda expression for item listener with respect to item changes
 	    {
 	    if(ev.getStateChange()==ItemEvent.SELECTED)
 	    {
 	    	control.setAutomaticGrowth(true);
 	    	jbc.setEnabled(false);
-	    	
 	    }
 	    else
 	    {

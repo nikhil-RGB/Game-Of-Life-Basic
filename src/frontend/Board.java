@@ -25,7 +25,7 @@ public Board(CellSystem cs)
 {
 this.cs=cs;
 Cell[][] grid=cs.getGrid();
-this.setLayout(new GridLayout(grid.length,grid[0].length));
+this.setLayout(new GridLayout(grid.length,grid[0].length,3,3));
 this.buttons=new JButton[grid.length][grid[0].length];
  for(int i=0;i<this.buttons.length;++i)
  {
@@ -35,13 +35,14 @@ this.buttons=new JButton[grid.length][grid[0].length];
 		Cell reference=cs.getCellAt(new Point(i,j));
 	    if(reference.getState())
 	    {
-	    	op.setBackground(Color.GREEN);
+	    	op.setBorder(ApplicationLauncher.bord);
+	    	op.setBackground(Color.WHITE);
 	    	op.setText("ALIVE");
 	    	
 	    }
 	    else
 	    {
-	    	op.setBackground(Color.RED);
+	    	op.setBackground(Color.GRAY);
 	    	op.setText("DEAD");
 	    }
 	   this.add(op);
@@ -61,12 +62,12 @@ for(int i=0;i<grid.length;++i)
   boolean state_n=r.getState();//new state of cell
   if(state_n)
   {
-	  ref.setBackground(Color.GREEN);
+	  ref.setBackground(Color.WHITE);
 	  ref.setText("ALIVE");
   }
   else
   {
-	  ref.setBackground(Color.RED);
+	  ref.setBackground(Color.GRAY);
 	  ref.setText("DEAD");
   }
  }
