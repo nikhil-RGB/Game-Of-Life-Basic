@@ -54,7 +54,20 @@ public final class ApplicationLauncher {
 	public static JPanel createSidePanel(final Board b)
 	{
 		JPanel main_p=new JPanel();//main panel
-		main_p.setLayout(new GridLayout(2,3));
+		GridBagLayout p=new GridBagLayout();
+		main_p.setLayout(p);
+		GridBagConstraints gc1=new GridBagConstraints();
+		gc1.gridx=0;
+		gc1.gridy=0;
+		gc1.weightx=0.4;
+		GridBagConstraints gc2=new GridBagConstraints();
+		gc2.gridx=1;
+		gc2.gridy=0;
+		gc2.weightx=0.4;
+		GridBagConstraints gc3=new GridBagConstraints();
+		gc3.gridx=2;
+		gc3.gridy=0;
+		gc3.weightx=0.4;
 		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
@@ -91,12 +104,10 @@ public final class ApplicationLauncher {
         jpan.add(jcab);
         //jpan now contains all control/responsive components
         //Now, arrange components in main_panel
-        main_p.add(jlab);
-        main_p.add(Box.createRigidArea(new Dimension(5,15)));
-        main_p.add(jbc);
-        main_p.add(Box.createRigidArea(new Dimension(5,15)));
-        main_p.add(jcab);
-        main_p.add(Box.createRigidArea(new Dimension(5,15)));
+        main_p.add(jlab,gc1);
+        main_p.add(jbc,gc2);
+        main_p.add(jcab,gc3);
+        
         
         //set associated text components to JPanel
         b.setAssociatedTextComponents(new JComponent[] {jlab});
