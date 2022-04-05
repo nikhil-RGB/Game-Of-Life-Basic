@@ -13,7 +13,9 @@ public final class CellSystem
 	//initialization as the backend can run without the frontend GUI representation as well
 	private Cell[][] grid;//grid of cells
 	private int generation;//Current generation number
-	private EnvironmentControlThread progressionControl;
+	private boolean system_cont;//This variable controls the entire system, if its false, the system will cease to grow
+	//even in conducive conditions.
+	private EnvironmentControlThread progressionControl;//progression control thread for this system
 	//Standard constructor, creates a 10*10 cell grid system with all cells set to state
 	//"DEAD".
 	public CellSystem()
@@ -211,6 +213,24 @@ public final class CellSystem
  public int getGeneration()
  {
 	 return this.generation;
+ }
+ //This method clones the current cell grid and returns the clone 
+ public Cell[][] cloneSystem()
+ {
+	 Cell[][] clone=new Cell[this.grid.length][this.grid[0].length];
+	 for(int i=0;i<clone.length;++i)
+	 {
+		 for(int j=0;j<clone[i].length;++j)
+		 {
+			 clone[i][j]=this.grid[i][j];
+		 }
+	 }
+	 return clone;
+ }
+ //This method stops the system if the previous generation and current generation match
+ public boolean stopIfStabilized()
+ {
+	 return false;
  }
 
 }//End of class
