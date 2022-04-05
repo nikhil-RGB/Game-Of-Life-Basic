@@ -121,6 +121,8 @@ public final class CellSystem
 				  
 			  }
 			}
+			if(!(allow_next_gen||allow_automatic))
+			{continue;}
 			allow_next_gen=false; 
 		    nextGeneration();
 		    refreshSystem();
