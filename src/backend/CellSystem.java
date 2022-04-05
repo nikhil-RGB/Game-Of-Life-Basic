@@ -1,11 +1,8 @@
 package backend;
 import java.util.ArrayList;
-
 import javax.swing.*;
-
 import java.awt.Point;
 import frontend.Board;
-
 //This class maintains an entire system for cells
 public final class CellSystem 
 {
@@ -18,6 +15,10 @@ public final class CellSystem
 	private EnvironmentControlThread progressionControl;//progression control thread for this system
 	//Standard constructor, creates a 10*10 cell grid system with all cells set to state
 	//"DEAD".
+	//IIB
+	{
+		this.system_cont=true;
+	}
 	public CellSystem()
 	{
 		this(10,10);
@@ -57,6 +58,7 @@ public final class CellSystem
 	//all GUI related and other generation-related information is refreshed/updated by this method
 	public void refreshSystem()
 	{		
+		Cell[][] old=this.cloneSystem();
 		for(int i=0;i<grid.length;++i)
 	    {
 	    	for(int j=0;j<grid[0].length;++j)
@@ -65,11 +67,19 @@ public final class CellSystem
 	    	 oper.refresh();
 	    	 }
 	    }
+		Cell[][] newc=this.cloneSystem();
+		if(this.stopIfStabilized(old, newc)) 
+		{
+			JOptionPane.showMessageDialog(null,"System stabilized at: "+this.generation);
+			--generation;
+		}
 		generation++;//incrementing the generation number
 			
 	}
 	public boolean canSystemContinue()
 	{
+	 if(!system_cont)
+	 {return false;}
 	 for(int i=0;i<this.grid.length;++i)
 	 {
 		 for(int j=0;j<this.grid[0].length;++j)
@@ -222,15 +232,27 @@ public final class CellSystem
 	 {
 		 for(int j=0;j<clone[i].length;++j)
 		 {
-			 clone[i][j]=this.grid[i][j];
+			 clone[i][j]=this.grid[i][j].clone();
 		 }
 	 }
 	 return clone;
  }
  //This method stops the system if the previous generation and current generation match
- public boolean stopIfStabilized()
+ public boolean stopIfStabilized(Cell[][] previous,Cell[][] newb)
  {
-	 return false;
+	
+	 for(int i=0;i<previous.length;++i)
+	  {
+		 for(int j=0;j<previous[i].length;++j)
+		 {
+			 if(!previous[i][j].equals(newb[i][j]))
+			 {
+				 return false;
+			 }
+		 }
+	  }
+	 system_cont=false;//system will no longer continue as cells from two different generations are all equal
+	 return true;
  }
 
 }//End of class

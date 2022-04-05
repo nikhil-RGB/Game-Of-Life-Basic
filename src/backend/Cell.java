@@ -5,7 +5,7 @@ package backend;
 //The cell can also resurrect(go back to being alive rather than dead if a certain set of conditions are met)
 import java.awt.Point;
 import java.util.*;
-public final class Cell
+public final class Cell implements Cloneable
 {
 	private boolean new_state;//changed state for a cell after generation calculations-properties similar to state.
 	private boolean state;//state of the cell currently, can be DEAD(false) or ALIVE(true)
@@ -109,6 +109,12 @@ public final class Cell
     	String pos=this.position.x+", "+this.position.y;
     	return "The cell at "+pos+" is currently "+state;
     }
+    //this function checks if two cells have the same state and position info, generally used
+    //to compare the same cells from consecutive generations
+    public boolean equals(Cell c)
+    {
+    	return this.getCellData().equals(c.getCellData());
+    }
     //This function returns the number of cells alive in a particular list.
     public static int countAlive(ArrayList<Cell> cells)
     {
@@ -169,5 +175,12 @@ public final class Cell
     public void refresh()
     {
     	this.state=this.new_state;
+    }
+    //This method copies the cell information without copying the cell's reference
+    public Cell clone()
+    {   
+    	Point p=new Point(this.position.x,this.position.y);
+    	Cell c=new Cell(this.state,p);
+    	return c;
     }
 }
