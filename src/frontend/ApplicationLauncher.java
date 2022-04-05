@@ -122,4 +122,40 @@ public final class ApplicationLauncher {
         b.setAssociatedTextComponents(new JComponent[] {jlab});
 	    return main_p;
 	}
+	//Accepts a board with a certain initial configuration from the user.
+	private static CellSystem acceptInitialBoard(int x,int y)
+	{
+		CellSystem cs=new CellSystem(x,y);
+		ItemListener il=(ie)->
+		{
+			JToggleButton jtb=(JToggleButton)(ie.getSource());
+			Scanner reader=new Scanner(jtb.getActionCommand());
+			Cell c=cs.getCellAt(new Point(reader.nextInt(),reader.nextInt()));
+			reader.close();
+			if(ie.getStateChange()==ItemEvent.SELECTED)
+			{
+			jtb.setBackground(Color.white);
+			jtb.setText("ALIVE");
+			c.setState(true);	
+			}
+			else
+			{
+			jtb.setBackground(Color.gray);
+			jtb.setText("DEAD");
+			c.setState(false);
+			}
+		};
+		for(int i=0;i<x;++i)
+		{
+			for(int j=0;j<y;++j)
+			{
+				JToggleButton jtb=new JToggleButton("DEAD",false);
+				jtb.setBackground(Color.GRAY);
+				jtb.setActionCommand(i+" "+j);
+		        jtb.addItemListener(il);
+		        
+			}
+		}
+		return cs;
+	}
 }
