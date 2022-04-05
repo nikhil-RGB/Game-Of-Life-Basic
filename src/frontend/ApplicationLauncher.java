@@ -30,7 +30,7 @@ public final class ApplicationLauncher {
 	    jfrm.add(b,BorderLayout.CENTER);
 	    jfrm.add(side_panel,BorderLayout.NORTH);
 	    oper.setAssociate(b);
-	    oper.activateSystem(true, false);
+	    oper.activateSystem(false, false);
 	    jfrm.setSize(800,600);
 	    jfrm.setVisible(true);
 	    jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +81,7 @@ public final class ApplicationLauncher {
 		jbc.setToolTipText("<html>This button allows the user to move to the next generation<br>"
 				+ "Will be disabled if automatic progression is enabled");
 	    jbc.setToolTipText("Allows user to auto-progress from one generation to another without manually clicking the \"progress\" button");
-	    JCheckBox jcab= new JCheckBox("Automatic progress",true);
+	    JCheckBox jcab= new JCheckBox("Automatic progress",false);
 	    jcab.setBorder(bord);
 	    jcab.setBackground(Color.GRAY);
 	    jcab.setFont(font);

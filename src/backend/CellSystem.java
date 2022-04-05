@@ -146,7 +146,7 @@ public final class CellSystem
 		    
 		    if(!canSystemContinue())
 		    {
-		    	JOptionPane.showMessageDialog(null,"All cells have died/System force killed");
+		    	JOptionPane.showMessageDialog(null,"System stabilized/All cells have died/System force killed");
 		    }
 		 }
 		}
@@ -254,5 +254,6 @@ public final class CellSystem
 	 system_cont=false;//system will no longer continue as cells from two different generations are all equal
 	 return true;
  }
+ 
 
 }//End of class
