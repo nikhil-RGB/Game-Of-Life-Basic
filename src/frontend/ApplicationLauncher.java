@@ -7,12 +7,19 @@ import java.awt.event.ItemListener;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.Border;
-//This class deals with 
+//This class deals with launching the application of Game-of-Life 
 public final class ApplicationLauncher {
-	//standard font
+	
+	private static volatile boolean initialized;//This variable determines if the application is initialized, i.e initial configuration has been entered
+	//true if board is initialized, false if board is not yet initialized-is false by default
+	
+	//Default Border for components in the main board
 	public static Border bord=new RoundedBorder(6);
+	
+	//standard font
 	public static Font font=new Font("SansSerif",Font.BOLD,14);
-    //This method launches the SWING application 
+    
+	//This method launches the SWING application 
 	public static void main(String[] args) 
 	{
      SwingUtilities.invokeLater(()->{
@@ -125,6 +132,11 @@ public final class ApplicationLauncher {
 	//Accepts a board with a certain initial configuration from the user.
 	private static CellSystem acceptInitialBoard(int x,int y)
 	{
+		JPanel initBoard=new JPanel();
+		initBoard.setLayout(new GridLayout(x,y,3,3));
+		JFrame jfrm=new JFrame("Input Initial Configuartion");
+		jfrm.add(initBoard);
+		jfrm.setSize(800, 600);
 		CellSystem cs=new CellSystem(x,y);
 		ItemListener il=(ie)->
 		{
@@ -150,11 +162,16 @@ public final class ApplicationLauncher {
 			for(int j=0;j<y;++j)
 			{
 				JToggleButton jtb=new JToggleButton("DEAD",false);
+				jtb.setBorder(bord);
 				jtb.setBackground(Color.GRAY);
 				jtb.setActionCommand(i+" "+j);
 		        jtb.addItemListener(il);
-		        
-			}
+		        initBoard.add(jtb);
+		    }
+		}
+		while(!initialized)
+		{
+			//While the initial configuation has not been initialized, this loop will run;
 		}
 		return cs;
 	}
