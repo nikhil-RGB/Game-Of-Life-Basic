@@ -136,6 +136,15 @@ public final class ApplicationLauncher {
 		JPanel initBoard=new JPanel();
 		initBoard.setLayout(new GridLayout(x,y,3,3));
 		JFrame jfrm=new JFrame("Input Initial Configuration");
+		JMenuBar jmb=new JMenuBar();
+		JMenu jmen=new JMenu("Click to proceed to automata application");
+		JMenuItem jmit=new JMenuItem("Proceed(Cannot be undone");
+		jmit.addActionListener((ev)->{
+			initialized=true;
+		});
+		jmen.add(jmit);
+		jmb.add(jmen);
+		jfrm.setJMenuBar(jmb);;
 		jfrm.add(initBoard);
 		jfrm.setSize(800, 600);
 		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

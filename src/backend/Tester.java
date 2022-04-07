@@ -79,7 +79,7 @@ public final class Tester {
 			
 			if(!alive.contains(pp))
 			{
-			  	alive.add(pp);
+			  	alive.add(pp);//this comment is so that my file will auto compile again
 			  	break;//Exit do-while loop
 			}
 			}
