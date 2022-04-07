@@ -1,5 +1,6 @@
 # Game-Of-Life-Basic
 
+<img width="587" alt="picture of the board" src="https://user-images.githubusercontent.com/68727041/162186812-604ad605-a477-4a7f-8eb4-f35b7951fc26.png">
 
 
 A basic representation of the 0-player game, "Game-of-Life", a simple example of basic cellular automata.
