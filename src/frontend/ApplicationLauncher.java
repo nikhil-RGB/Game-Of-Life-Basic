@@ -22,15 +22,14 @@ public final class ApplicationLauncher {
 	//This method launches the SWING application 
 	public static void main(String[] args) 
 	{
-     SwingUtilities.invokeLater(()->{
-    	 runTest();
-     });
+         	 runTest();    
 	
 	}
 	
 	//This method initializes and launches the main BOARD GUI, still in development and testing
 	public static void launchGameboardTest(CellSystem oper)
 	{
+		SwingUtilities.invokeLater(()->{
 		Board b=new Board(oper);
 		JFrame jfrm=new JFrame("Game-of-Life board");
 		JPanel side_panel=ApplicationLauncher.createSidePanel(b);
@@ -41,20 +40,22 @@ public final class ApplicationLauncher {
 	    jfrm.setSize(800,600);
 	    jfrm.setVisible(true);
 	    jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		});
 	}
 	//This method runs a test simulation of a randomly generated board
 	public static void runTest()
 	{   
 		//Test statement
-		System.out.println("first line reached");
-		CellSystem cs=new CellSystem(10,10);
-		System.out.println("Cell System initialized");
-		ArrayList<Point> arr=Tester.generateLiveList(10);
-		System.out.println("List of live cells generated");
-		for(Point p:arr)
-		{
-		 cs.getCellAt(p).setState(true);
-		}
+		//System.out.println("first line reached");
+		//CellSystem cs=new CellSystem(10,10);
+		//System.out.println("Cell System initialized");
+		//ArrayList<Point> arr=Tester.generateLiveList(10);
+		//System.out.println("List of live cells generated");
+		//for(Point p:arr)
+		//{
+		//cs.getCellAt(p).setState(true);
+		//}
+		CellSystem cs=ApplicationLauncher.acceptInitialBoard(10, 10);
 		System.out.println("Launch method reached");//This statement doesnt seem to be getting executed
 		//The statement above prints only if the function which launches the GUI is reached.
 		launchGameboardTest(cs);
@@ -133,6 +134,7 @@ public final class ApplicationLauncher {
 	//the 
 	private static CellSystem acceptInitialBoard(int x,int y)
 	{
+	CellSystem cs=new CellSystem(x,y);
 		JPanel initBoard=new JPanel();
 		initBoard.setLayout(new GridLayout(x,y,3,3));
 		JFrame jfrm=new JFrame("Input Initial Configuration");
@@ -149,7 +151,7 @@ public final class ApplicationLauncher {
 		jfrm.setSize(800, 600);
 		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Default close operation is to exit on close.
-		CellSystem cs=new CellSystem(x,y);
+		
 		ItemListener il=(ie)->
 		{
 			JToggleButton jtb=(JToggleButton)(ie.getSource());
@@ -181,6 +183,10 @@ public final class ApplicationLauncher {
 		        initBoard.add(jtb);
 		    }
 		}
+		jfrm.setVisible(true);
+		
+		
+	
 		while(!initialized)
 		{
 			//While the initial configuation has not been initialized, this loop will run;
