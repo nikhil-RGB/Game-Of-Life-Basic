@@ -129,14 +129,17 @@ public final class ApplicationLauncher {
         b.setAssociatedTextComponents(new JComponent[] {jlab});
 	    return main_p;
 	}
-	//Accepts a board with a certain initial configuration from the user.
+	//Accepts a board with a certain initial configuration from the user-This method is called before
+	//the 
 	private static CellSystem acceptInitialBoard(int x,int y)
 	{
 		JPanel initBoard=new JPanel();
 		initBoard.setLayout(new GridLayout(x,y,3,3));
-		JFrame jfrm=new JFrame("Input Initial Configuartion");
+		JFrame jfrm=new JFrame("Input Initial Configuration");
 		jfrm.add(initBoard);
 		jfrm.setSize(800, 600);
+		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//Default close operation is to exit on close.
 		CellSystem cs=new CellSystem(x,y);
 		ItemListener il=(ie)->
 		{
