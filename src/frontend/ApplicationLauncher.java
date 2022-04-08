@@ -263,8 +263,27 @@ public final class ApplicationLauncher
 	    });
 	    jmens[0]=color;
 	    
-	    JMenuItem bounds=new JMenuItem("Change pre- defined rules");
-	    //come back here
+	    JMenuItem bounds=new JMenuItem("Change pre-defined rules");
+	    String[] options= new String[8];
+	    Object[] answers=new Object[3];
+	    String questions[]= 
+	    	{
+	    		  "Number of adjacent cells below below which cell dies of loneliness",
+	    		  "Number of adjacent cells above which cell dies of overcrowding",
+	    		  "Number of adjacent cells for which a dead cell comes back to life"
+	    	};
+	    for(int i=0;i<options.length;++i)
+	    {
+	    	options[i]=(i+1)+"";
+	    }
+	    
+	    //action listener for bounds JMenuItem
+	    bounds.addActionListener((ev)->{
+	    	for(int i=0;i<3;++i)
+	    	{
+	    	  //answers[i]=JOptionPane.showInputDialog(parent, questions, null, i)
+	    	}
+	    });
 	    
 	    return jmens;
 	}
