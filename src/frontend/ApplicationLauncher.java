@@ -12,6 +12,11 @@ public final class ApplicationLauncher {
 	
 	private static volatile boolean initialized;//This variable determines if the application is initialized, i.e initial configuration has been entered
 	//true if board is initialized, false if board is not yet initialized-is false by default
+	 
+	public static Color dead_c;
+	//Standard Color specifier for a cell which is dead. 
+	public static Color alive_c;
+	//Standard color specifier for a cell which is alive.
 	
 	//Default Border for components in the main board
 	public static Border bord=new RoundedBorder(6);
@@ -19,6 +24,12 @@ public final class ApplicationLauncher {
 	//standard font
 	public static Font font=new Font("SansSerif",Font.BOLD,14);
     
+	//static initialization block
+	static
+	{
+		dead_c=Color.RED;
+		alive_c=Color.GREEN;
+	}
 	//This method launches the SWING application 
 	public static void main(String[] args) 
 	{
@@ -160,13 +171,13 @@ public final class ApplicationLauncher {
 			reader.close();
 			if(ie.getStateChange()==ItemEvent.SELECTED)
 			{
-			jtb.setBackground(Color.white);
+			jtb.setBackground(ApplicationLauncher.alive_c);
 			jtb.setText("ALIVE");
 			c.setState(true);	
 			}
 			else
 			{
-			jtb.setBackground(Color.gray);
+			jtb.setBackground(ApplicationLauncher.dead_c);
 			jtb.setText("DEAD");
 			c.setState(false);
 			}
@@ -177,7 +188,7 @@ public final class ApplicationLauncher {
 			{
 				JToggleButton jtb=new JToggleButton("DEAD",false);
 				jtb.setBorder(bord);
-				jtb.setBackground(Color.GRAY);
+				jtb.setBackground(ApplicationLauncher.dead_c);
 				jtb.setActionCommand(i+" "+j);
 		        jtb.addItemListener(il);
 		        initBoard.add(jtb);
@@ -191,6 +202,48 @@ public final class ApplicationLauncher {
 		{
 			//While the initial configuation has not been initialized, this loop will run;
 		}
+		jfrm.setVisible(false);
+		jfrm.dispose();
 		return cs;
+	}
+	//This function generates additional menu options for the main additional options JMenu
+	public static JMenuItem[] generateAdditionalOptions(JFrame parent)
+	{
+		//first option is change color scheme. 
+		//second option is to change resurrection/death bounds for cells.
+		//third option resets the entire initial configurations.
+	    JMenuItem[] jmens=new JMenuItem[3];
+	    
+	    //Item 1- Color chooser, allows user to change colors for alive/dead cells.
+	    JMenuItem color=new JMenuItem("Change Colour Scheme");
+	    
+	    color.addActionListener((ae)->{
+	    	boolean flag1;
+		    boolean flag2;
+	    	do 
+	        {      
+	    	ApplicationLauncher.alive_c=JColorChooser.showDialog(parent,"Select Color for live cells ",Color.WHITE);
+	        flag1=(ApplicationLauncher.alive_c==null);
+	        if(flag1)
+	        {
+	        	JOptionPane.showMessageDialog(parent,"Invalid Selection,try again!");
+	        }
+	        }
+	        while(flag1);
+	        do
+	        {
+	        ApplicationLauncher.dead_c=JColorChooser.showDialog(parent,"Select Color for dead cells ",Color.GRAY);
+	        flag2=(ApplicationLauncher.dead_c==null)||(ApplicationLauncher.dead_c.equals(ApplicationLauncher.alive_c));
+	        if(flag2)
+	        {
+	        	JOptionPane.showMessageDialog(parent,"Invalid Selection,try again!");
+	        }
+	        }
+	        while(flag2);
+	    });
+	    jmens[0]=color;
+	    
+	    
+	    return jmens;
 	}
 }

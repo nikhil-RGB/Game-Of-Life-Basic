@@ -33,16 +33,15 @@ this.buttons=new JButton[grid.length][grid[0].length];
 	{
 		JButton op=buttons[i][j]=new JButton();
 		Cell reference=cs.getCellAt(new Point(i,j));
+		op.setBorder(ApplicationLauncher.bord);
 	    if(reference.getState())
 	    {
-	    	op.setBorder(ApplicationLauncher.bord);
-	    	op.setBackground(Color.WHITE);
+	    	op.setBackground(ApplicationLauncher.alive_c);
 	    	op.setText("ALIVE");
-	    	
 	    }
 	    else
 	    {
-	    	op.setBackground(Color.GRAY);
+	    	op.setBackground(ApplicationLauncher.dead_c);
 	    	op.setText("DEAD");
 	    }
 	   this.add(op);
@@ -62,12 +61,12 @@ for(int i=0;i<grid.length;++i)
   boolean state_n=r.getState();//new state of cell
   if(state_n)
   {
-	  ref.setBackground(Color.WHITE);
+	  ref.setBackground(ApplicationLauncher.alive_c);
 	  ref.setText("ALIVE");
   }
   else
   {
-	  ref.setBackground(Color.GRAY);
+	  ref.setBackground(ApplicationLauncher.dead_c);
 	  ref.setText("DEAD");
   }
  }
