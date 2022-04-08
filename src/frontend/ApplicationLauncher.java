@@ -214,6 +214,7 @@ public final class ApplicationLauncher
 		        initBoard.add(jtb);
 		    }
 		}
+		jmb.add(generateAdditionalOptions(jfrm));
 		jfrm.setVisible(true);
 	    });
 		
@@ -227,13 +228,12 @@ public final class ApplicationLauncher
 		return cs;
 	}
 	//This function generates additional menu options for the main additional options JMenu
-	public static JMenuItem[] generateAdditionalOptions(JFrame parent)
+	public static JMenu generateAdditionalOptions(JFrame parent)
 	{
+		JMenu menu=new JMenu("Additional Options");
 		//first option is change color scheme. 
 		//second option is to change resurrection/death bounds for cells.
-		//third option resets the entire initial configurations.
-	    JMenuItem[] jmens=new JMenuItem[3];
-	    
+
 	    //Item 1- Color chooser, allows user to change colors for alive/dead cells.
 	    JMenuItem color=new JMenuItem("Change Colour Scheme");
 	    
@@ -261,30 +261,35 @@ public final class ApplicationLauncher
 	        }
 	        while(flag2);
 	    });
-	    jmens[0]=color;
+	    menu.add(color);
 	    
 	    JMenuItem bounds=new JMenuItem("Change pre-defined rules");
-	    String[] options= new String[8];
-	    Object[] answers=new Object[3];
-	    String questions[]= 
-	    	{
-	    		  "Number of adjacent cells below below which cell dies of loneliness",
-	    		  "Number of adjacent cells above which cell dies of overcrowding",
-	    		  "Number of adjacent cells for which a dead cell comes back to life"
-	    	};
-	    for(int i=0;i<options.length;++i)
-	    {
-	    	options[i]=(i+1)+"";
-	    }
 	    
 	    //action listener for bounds JMenuItem
 	    bounds.addActionListener((ev)->{
+	    	String[] options= new String[8];
+		    Object[] answers=new Object[3];
+		    String[] defaults= {"2","5","3"};
+		    String questions[]= 
+		    	{
+		    		  "Number of adjacent cells below below which cell dies of loneliness",
+		    		  "Number of adjacent cells above which cell dies of overcrowding",
+		    		  "Number of adjacent cells for which a dead cell comes back to life"
+		    	};
+		    for(int i=0;i<options.length;++i)
+		    {
+		    	options[i]=(i+1)+"";
+		    }
 	    	for(int i=0;i<3;++i)
 	    	{
-	    	  //answers[i]=JOptionPane.showInputDialog(parent, questions, null, i)
+	    	  answers[i]=JOptionPane.showInputDialog(null, questions[i], 
+	                  "Change generation-control rules", JOptionPane.QUESTION_MESSAGE,null, options, defaults[i]);
 	    	}
+	    	ApplicationLauncher.alive_LB=(answers[0]==null)?ApplicationLauncher.alive_LB:Integer.parseInt((String)answers[0]);
+            ApplicationLauncher.alive_UB=(answers[1]==null)?ApplicationLauncher.alive_UB:Integer.parseInt((String)answers[1]);
+            ApplicationLauncher.resurrect=(answers[2]==null)?ApplicationLauncher.resurrect:Integer.parseInt((String)answers[2]);
 	    });
-	    
-	    return jmens;
+	    menu.add(bounds);
+	    return menu;
 	}
 }
