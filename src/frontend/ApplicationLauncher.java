@@ -145,10 +145,14 @@ public final class ApplicationLauncher {
 	//the 
 	private static CellSystem acceptInitialBoard(int x,int y)
 	{
+		
 	CellSystem cs=new CellSystem(x,y);
-		JPanel initBoard=new JPanel();
+	JFrame jfrm=new JFrame("Input Initial Configuration");
+	SwingUtilities.invokeLater(()->{	
+	    
+	    JPanel initBoard=new JPanel();
 		initBoard.setLayout(new GridLayout(x,y,3,3));
-		JFrame jfrm=new JFrame("Input Initial Configuration");
+		
 		JMenuBar jmb=new JMenuBar();
 		JMenu jmen=new JMenu("Click to proceed to automata application");
 		JMenuItem jmit=new JMenuItem("Proceed(Cannot be undone");
@@ -195,7 +199,7 @@ public final class ApplicationLauncher {
 		    }
 		}
 		jfrm.setVisible(true);
-		
+	    });
 		
 	
 		while(!initialized)
