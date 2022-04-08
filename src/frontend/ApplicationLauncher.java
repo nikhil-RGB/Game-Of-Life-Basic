@@ -8,11 +8,24 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 //This class deals with launching the application of Game-of-Life 
-public final class ApplicationLauncher {
+public final class ApplicationLauncher
+{
 	
 	private static volatile boolean initialized;//This variable determines if the application is initialized, i.e initial configuration has been entered
 	//true if board is initialized, false if board is not yet initialized-is false by default
-	 
+	
+	public static int alive_UB;
+	//Upper-bound for adjacent cells above which they will die.
+	//by default, this value is 5
+	
+	public static int alive_LB;
+	//Lower Bound for cells to stay alive below which they will die.
+	//by default, this value is 2
+	
+	public static int resurrect;
+	//Exact limit at which the cell in question resurrects.
+	//by default, this value is 3.
+	
 	public static Color dead_c;
 	//Standard Color specifier for a cell which is dead. 
 	public static Color alive_c;
@@ -27,8 +40,11 @@ public final class ApplicationLauncher {
 	//static initialization block
 	static
 	{
-		dead_c=Color.RED;
-		alive_c=Color.GREEN;
+		dead_c=Color.GRAY;
+		alive_c=Color.WHITE;
+		alive_UB=5;
+		alive_LB=2;
+		resurrect=3;
 	}
 	//This method launches the SWING application 
 	public static void main(String[] args) 
@@ -247,6 +263,8 @@ public final class ApplicationLauncher {
 	    });
 	    jmens[0]=color;
 	    
+	    JMenuItem bounds=new JMenuItem("Change pre- defined rules");
+	    //come back here
 	    
 	    return jmens;
 	}

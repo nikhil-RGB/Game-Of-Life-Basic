@@ -2,6 +2,8 @@ package backend;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.Point;
+
+import frontend.ApplicationLauncher;
 import frontend.Board;
 //This class maintains an entire system for cells
 public final class CellSystem 
@@ -50,7 +52,7 @@ public final class CellSystem
 	    {
 	    	for(int j=0;j<grid[0].length;++j)
 	    	{
-	    	 grid[i][j].stateUpdate(this.grid, 2,5,3);
+	    	 grid[i][j].stateUpdate(this.grid,ApplicationLauncher.alive_LB,ApplicationLauncher.alive_UB,ApplicationLauncher.resurrect);
 	    	}
 	    }
 	}
