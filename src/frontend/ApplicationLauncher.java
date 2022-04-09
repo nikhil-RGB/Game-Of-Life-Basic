@@ -10,6 +10,7 @@ import javax.swing.border.Border;
 //This class deals with launching the application of Game-of-Life 
 public final class ApplicationLauncher
 {
+	//Start of class
 	
 	private static volatile boolean initialized;//This variable determines if the application is initialized, i.e initial configuration has been entered
 	//true if board is initialized, false if board is not yet initialized-is false by default
@@ -165,7 +166,7 @@ public final class ApplicationLauncher
 	CellSystem cs=new CellSystem(x,y);
 	JFrame jfrm=new JFrame("Input Initial Configuration");
 	SwingUtilities.invokeLater(()->{	
-	    
+	    JToggleButton array[][]=new JToggleButton[x][y];
 	    JPanel initBoard=new JPanel();
 		initBoard.setLayout(new GridLayout(x,y,3,3));
 		
@@ -207,6 +208,7 @@ public final class ApplicationLauncher
 			for(int j=0;j<y;++j)
 			{
 				JToggleButton jtb=new JToggleButton("DEAD",false);
+				array[i][j]=jtb;
 				jtb.setBorder(bord);
 				jtb.setBackground(ApplicationLauncher.dead_c);
 				jtb.setActionCommand(i+" "+j);
@@ -214,21 +216,21 @@ public final class ApplicationLauncher
 		        initBoard.add(jtb);
 		    }
 		}
-		jmb.add(generateAdditionalOptions(jfrm));
+		jmb.add(generateAdditionalOptions(jfrm,array));
 		jfrm.setVisible(true);
 	    });
 		
 	
 		while(!initialized)
 		{
-			//While the initial configuation has not been initialized, this loop will run;
+			//While the initial configuration has not been initialized, this loop will run;
 		}
 		jfrm.setVisible(false);
 		jfrm.dispose();
 		return cs;
 	}
 	//This function generates additional menu options for the main additional options JMenu
-	public static JMenu generateAdditionalOptions(JFrame parent)
+	public static JMenu generateAdditionalOptions(JFrame parent,JToggleButton[][] butts)
 	{
 		JMenu menu=new JMenu("Additional Options");
 		//first option is change color scheme. 
@@ -260,6 +262,8 @@ public final class ApplicationLauncher
 	        }
 	        }
 	        while(flag2);
+	        ApplicationLauncher.refreshButtonSet(butts);
+	        //gui refreshed in the  lineabove
 	    });
 	    menu.add(color);
 	    
@@ -290,6 +294,38 @@ public final class ApplicationLauncher
             ApplicationLauncher.resurrect=(answers[2]==null)?ApplicationLauncher.resurrect:Integer.parseInt((String)answers[2]);
 	    });
 	    menu.add(bounds);
+	    
+	    JMenuItem resetBoard=new JMenuItem("Reset Board");
+	    resetBoard.addActionListener((ev)->{
+	    	//add code to reset board here
+	    	for(int i=0;i<butts.length;++i)
+	    	 {
+	    		for(int j=0;j<butts[i].length;++j)
+	    		{
+	    			butts[i][j].setBackground(dead_c);
+	    			butts[i][j].setText("DEAD");
+	    		}
+	    	 }
+	    });
+	    menu.add(resetBoard);
+	    
 	    return menu;
 	}
+	
+	//This method should be used exclusively for refreshing the board's colour after 
+	//the color selection has been dynamically changed.
+	public static void refreshButtonSet(JToggleButton[][] btns)
+	{
+		for(int i=0;i<btns.length;++i)
+		{
+			for(int j=0;j<btns[i].length;++j)
+			{
+				JToggleButton oper=btns[i][j];
+				Color nn=(oper.getText().equalsIgnoreCase("ALIVE"))?ApplicationLauncher.alive_c:ApplicationLauncher.dead_c;
+			    oper.setBackground(nn);
+			}
+		}
+	}
+	
+//End of class	
 }
