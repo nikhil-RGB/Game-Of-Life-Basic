@@ -302,10 +302,13 @@ public final class ApplicationLauncher
 	    	 {
 	    		for(int j=0;j<butts[i].length;++j)
 	    		{
-	    			butts[i][j].setBackground(dead_c);
-	    			butts[i][j].setText("DEAD");
+	    			if(butts[i][j].getText().equals("ALIVE"))
+	    			{
+	    				butts[i][j].doClick();
+	    			}
 	    		}
 	    	 }
+	    ApplicationLauncher.refreshButtonSet(butts);
 	    });
 	    menu.add(resetBoard);
 	    
