@@ -298,6 +298,12 @@ public final class ApplicationLauncher
 	    JMenuItem resetBoard=new JMenuItem("Reset Board");
 	    resetBoard.addActionListener((ev)->{
 	    	//add code to reset board here
+	    	//This nested loop can slow down the entire application as a whole, especially if
+	    	//more buttons need to be clicked, so run it as a seperate thread.
+	    Thread thrd=new Thread()
+	    { 
+	    	public void run()
+	    	{
 	    	for(int i=0;i<butts.length;++i)
 	    	 {
 	    		for(int j=0;j<butts[i].length;++j)
@@ -308,7 +314,10 @@ public final class ApplicationLauncher
 	    			}
 	    		}
 	    	 }
-	    ApplicationLauncher.refreshButtonSet(butts);
+	    	menu.repaint();
+	    	}
+	    };
+	    thrd.start();
 	    });
 	    menu.add(resetBoard);
 	    
