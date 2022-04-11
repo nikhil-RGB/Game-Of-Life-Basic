@@ -11,7 +11,10 @@ import javax.swing.border.Border;
 public final class ApplicationLauncher
 {
 	//Start of class
-
+    
+	//temporary class variable, used only once, for the sake of thread safety
+	public static volatile JToggleButton[][] temp;
+	
 	//Dimensions of the grid in which cellular automata is being carried out 
 	private static Dimension grid_n;
 	
@@ -229,15 +232,27 @@ public final class ApplicationLauncher
 		        initBoard.add(jtb);
 		    }
 		}
+		temp=array;
 		jmb.add(generateAdditionalOptions(jfrm,array));
 		jfrm.setVisible(true);
 	    });
 		
-	
-		while(!initialized)
+	    boolean chk;
+	    do
+	    {
+		
+	    while(!initialized)
 		{
 			//While the initial configuration has not been initialized, this loop will run;
 		}
+	    chk=!ApplicationLauncher.validityCheck(temp);
+	    if(chk)
+	    {
+	    	JOptionPane.showMessageDialog(null,"Invalid initial configuration\nAt least one cell should be alive","Error",JOptionPane.ERROR_MESSAGE, null);
+	        initialized=false;
+	    }
+	    }
+		while(chk);
 		jfrm.setVisible(false);
 		jfrm.dispose();
 		return cs;
@@ -246,7 +261,7 @@ public final class ApplicationLauncher
 	public static JMenu generateAdditionalOptions(JFrame parent,JToggleButton[][] butts)
 	{
 		JMenu menu=new JMenu("Additional Options");
-		//first option is change color scheme. 
+		//first option is change color scheme 
 		//second option is to change resurrection/death bounds for cells.
 
 	    //Item 1- Color chooser, allows user to change colors for alive/dead cells.
@@ -422,7 +437,7 @@ public final class ApplicationLauncher
 	}
 	return (grid_n=new Dimension(dimensions[0],dimensions[1]));
 	}
-	//This method force convers valid numberic input with a minus sign into an invalid format by adding garbage characters 
+	//This method force converts valid numeric input with a minus sign into an invalid format by adding garbage characters 
 	//to the string if there is a minus sign.
 	public static String invalidateNegativeInput(String inp)
 	{
@@ -434,6 +449,20 @@ public final class ApplicationLauncher
 			output+="garbage";
 		}
 	return output;	
+	}
+	//This method checks if the current initial configuration is valid for the cellular automata design
+	public static boolean validityCheck(JToggleButton[][] butts)
+	{
+		for (int i=0;i<butts.length;++i)
+		{
+			for(int j=0;j<butts[i].length;++j)
+			{
+				Color c=butts[i][j].getBackground();
+				if(c.equals(alive_c))
+				{return true;}
+			}
+		}
+	return false;
 	}
 	
 //End of class	
