@@ -52,10 +52,10 @@ public final class ApplicationLauncher
 		alive_UB=5;
 		alive_LB=2;
 		resurrect=3;
-		//gen_gap=1500;-->original value
-		gen_gap=700;
-		//grid_n=new Dimension(10,10);-->original value
-		grid_n=new Dimension(20,20);
+		gen_gap=1500;//original value
+		//gen_gap=700;test
+		grid_n=new Dimension(10,10);//original value
+		//grid_n=new Dimension(20,20);test
 	}
 	//This method launches the SWING application 
 	public static void main(String[] args) 
@@ -93,6 +93,8 @@ public final class ApplicationLauncher
 		//{
 		//cs.getCellAt(p).setState(true);
 		//}
+		ApplicationLauncher.acceptUserSize();
+		
 		CellSystem cs=ApplicationLauncher.acceptInitialBoard(grid_n.width,grid_n.height);
 		//custom size board will now be launched.
 		System.out.println("Launch method reached");//This statement doesnt seem to be getting executed
@@ -248,6 +250,8 @@ public final class ApplicationLauncher
 		//second option is to change resurrection/death bounds for cells.
 
 	    //Item 1- Color chooser, allows user to change colors for alive/dead cells.
+		//Item 3-allows the user to reset the initial configuration.
+		//Item 4-allows the user to reset custom time gaps for automatic generation gaps
 	    JMenuItem color=new JMenuItem("Change Colour Scheme");
 	    
 	    color.addActionListener((ae)->{
@@ -332,6 +336,34 @@ public final class ApplicationLauncher
 	    });
 	    menu.add(resetBoard);
 	    
+	    //Menu item for setting custom time intervals
+	    JMenuItem jmt=new JMenuItem("Set custom growth rate");
+	    jmt.addActionListener((ev)->{
+	    	LABELLED:
+	    	do
+	    	{
+	    	 long val=0;
+	    	 String input=JOptionPane.showInputDialog("<html>Enter the new time gap between"
+	    	 		+ "generations<br>(in milliseconds)",ApplicationLauncher.gen_gap );
+	    	 input=ApplicationLauncher.invalidateNegativeInput(input);
+	    	 try 
+	    	 {
+	    		
+	    		val=Long.parseLong(input);
+	    		ApplicationLauncher.gen_gap=val;
+	    		break;
+	    	 }
+	    	 catch(Exception ex) 
+	    	 {
+	    		 if(input==null)
+	    		 {break LABELLED;}
+	    		 JOptionPane.showMessageDialog(null,"Invalid input,try again","Faulty input!",JOptionPane.ERROR_MESSAGE, null);
+	    	 }
+	    	}
+	    	while(true);
+	    });
+	    menu.add(jmt);
+	    
 	    return menu;
 	}
 	
@@ -360,6 +392,48 @@ public final class ApplicationLauncher
 	public static void setGenGap(long gap)
 	{
 		ApplicationLauncher.gen_gap=gap;
+	}
+	
+	//This method allows for custom input for a user's grid preference 
+	public static Dimension acceptUserSize()
+	{
+	int[] dimensions= {(int)grid_n.getWidth(),(int)grid_n.getHeight()};
+	String[] words= {"rows","columns"};
+	//1st and 2nd input loop
+	for(int i=0;i<2;++i)
+	{
+	do
+	{
+	try
+	{
+	 String input=JOptionPane.showInputDialog("Enter number of "+words[i],10);
+	 if(input==null) {break;}
+	 input=ApplicationLauncher.invalidateNegativeInput(input);
+	 int temp=Integer.parseInt(input);
+	 dimensions[i]=temp;
+	 break;
+	}
+	catch(Exception ex)
+	{
+		JOptionPane.showMessageDialog(null,"Invalid input,try again","Invalid",JOptionPane.ERROR_MESSAGE, null);
+	}
+	}
+	while(true);
+	}
+	return (grid_n=new Dimension(dimensions[0],dimensions[1]));
+	}
+	//This method force convers valid numberic input with a minus sign into an invalid format by adding garbage characters 
+	//to the string if there is a minus sign.
+	public static String invalidateNegativeInput(String inp)
+	{
+	if(inp==null)
+	{return null;}
+		String output=inp;
+		if(inp.contains("-"))
+		{
+			output+="garbage";
+		}
+	return output;	
 	}
 	
 //End of class	
