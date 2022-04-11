@@ -11,6 +11,12 @@ import javax.swing.border.Border;
 public final class ApplicationLauncher
 {
 	//Start of class
+
+	//Dimensions of the grid in which cellular automata is being carried out 
+	private static Dimension grid_n;
+	
+    //Time between generation switches
+	public static long gen_gap;
 	
 	private static volatile boolean initialized;//This variable determines if the application is initialized, i.e initial configuration has been entered
 	//true if board is initialized, false if board is not yet initialized-is false by default
@@ -46,6 +52,10 @@ public final class ApplicationLauncher
 		alive_UB=5;
 		alive_LB=2;
 		resurrect=3;
+		//gen_gap=1500;-->original value
+		gen_gap=700;
+		//grid_n=new Dimension(10,10);-->original value
+		grid_n=new Dimension(20,20);
 	}
 	//This method launches the SWING application 
 	public static void main(String[] args) 
@@ -83,7 +93,8 @@ public final class ApplicationLauncher
 		//{
 		//cs.getCellAt(p).setState(true);
 		//}
-		CellSystem cs=ApplicationLauncher.acceptInitialBoard(10, 10);
+		CellSystem cs=ApplicationLauncher.acceptInitialBoard(grid_n.width,grid_n.height);
+		//custom size board will now be launched.
 		System.out.println("Launch method reached");//This statement doesnt seem to be getting executed
 		//The statement above prints only if the function which launches the GUI is reached.
 		launchGameboardTest(cs);
@@ -337,6 +348,18 @@ public final class ApplicationLauncher
 			    oper.setBackground(nn);
 			}
 		}
+	}
+	
+	//getter method for generation gap(in milliseconds)
+	public static long getGenGap()
+	{
+		return ApplicationLauncher.gen_gap;
+	}
+	
+	//setter method for generation gap(in milliseconds)
+	public static void setGenGap(long gap)
+	{
+		ApplicationLauncher.gen_gap=gap;
 	}
 	
 //End of class	

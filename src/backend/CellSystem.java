@@ -125,7 +125,7 @@ public final class CellSystem
 			  {
 				  try
 				  {
-					Thread.sleep(1500);  
+					Thread.sleep(ApplicationLauncher.getGenGap());  
 				  }
 				  catch(Throwable ex) 
 				  {
