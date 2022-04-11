@@ -365,6 +365,10 @@ public final class ApplicationLauncher
 	    	 {
 	    		
 	    		val=Long.parseLong(input);
+	    		if((val)>(butts.length*butts[0].length))
+	    		{
+	    			throw new Exception();
+	    		}
 	    		ApplicationLauncher.gen_gap=val;
 	    		break;
 	    	 }
@@ -378,6 +382,37 @@ public final class ApplicationLauncher
 	    	while(true);
 	    });
 	    menu.add(jmt);
+	    
+	    //This JMenuItem allows the user to randomize initial configurations
+	    JMenuItem rand=new JMenuItem("Randomize initial configuration");
+	    rand.addActionListener((ev)->{
+	    	int size=0;
+	    	do 
+	    	{
+	    		String inp=JOptionPane.showInputDialog("Enter the number of live cells to be randomized into the board.");
+                if(inp==null)
+                {return;}
+                inp=ApplicationLauncher.invalidateNegativeInput(inp);
+	    		try
+                {
+                	int tmp=Integer.parseInt(inp);
+                	if(tmp>(butts.length*butts[0].length))
+                	{
+                		throw new Exception();
+                	}
+                	size=tmp;
+                	ApplicationLauncher.randomizeConfig(butts, size);
+                	break;
+                }
+                catch(Exception ex)
+                {
+                	JOptionPane.showMessageDialog(null,"Please enter a valid non-negative integer value");
+                }
+	    	}
+	    	while(true);
+	    	
+	    });
+	    menu.add(rand);
 	    
 	    return menu;
 	}
@@ -444,7 +479,7 @@ public final class ApplicationLauncher
 	if(inp==null)
 	{return null;}
 		String output=inp;
-		if(inp.contains("-"))
+		if(inp.contains("-")||inp.equals("0"))
 		{
 			output+="garbage";
 		}
@@ -463,6 +498,23 @@ public final class ApplicationLauncher
 			}
 		}
 	return false;
+	}
+	//This method randomizes the initial configuration of the board
+	public static void randomizeConfig(JToggleButton[][] array,int size)
+	{
+		Thread t=new Thread() {
+		public void run()
+		{
+		ArrayList<Point> points=UtilityMethods.generateLiveList(size,array.length,array[0].length);
+		 for(Point p:points)
+		  {
+			JToggleButton jtb=array[p.x][p.y];
+			jtb.setBackground(alive_c);
+			jtb.setText("ALIVE");
+		   }
+		 }
+		};
+		t.start();
 	}
 	
 //End of class	
