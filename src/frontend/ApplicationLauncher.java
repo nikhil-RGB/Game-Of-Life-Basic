@@ -365,10 +365,6 @@ public final class ApplicationLauncher
 	    	 {
 	    		
 	    		val=Long.parseLong(input);
-	    		if((val)>(butts.length*butts[0].length))
-	    		{
-	    			throw new Exception();
-	    		}
 	    		ApplicationLauncher.gen_gap=val;
 	    		break;
 	    	 }
