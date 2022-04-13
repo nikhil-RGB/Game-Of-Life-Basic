@@ -485,7 +485,8 @@ public final class ApplicationLauncher
 	if(inp==null)
 	{return null;}
 		String output=inp;
-		if(inp.contains("-")||inp.equals("0"))
+		boolean flg=inp.replace("0","").replace(" ","").isEmpty();
+		if(inp.contains("-")||inp.equals("0")||flg)
 		{
 			output+="garbage";
 		}
