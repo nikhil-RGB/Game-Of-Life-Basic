@@ -381,7 +381,16 @@ public final class ApplicationLauncher
 	    
 	    //This JMenuItem allows the user to randomize initial configurations
 	    JMenuItem rand=new JMenuItem("Randomize initial configuration");
+	    //rand requires a complete reset of the parent board before it executes, otherwise it will
+	    //not run.
+	    //also, make rand execute a series of clicks to the parent button, rather than simple resets to original
+	    //colours.
 	    rand.addActionListener((ev)->{
+	    	if(validityCheck(butts))
+	    	{
+	    		JOptionPane.showInternalMessageDialog(null, "Please reset board before randomizing the board","Reset board first", JOptionPane.ERROR_MESSAGE, null);//1 of 2 tasks finished
+	    		return;
+	    	}
 	    	int size=0;
 	    	do 
 	    	{
@@ -402,7 +411,8 @@ public final class ApplicationLauncher
                 }
                 catch(Exception ex)
                 {
-                	JOptionPane.showMessageDialog(null,"Please enter a valid non-negative integer value");
+                	JOptionPane.showMessageDialog(null, "Please enter a valid non-negative integer value\n Integer"
+                			+ "input should be smaller than rows*columns.","Invalid input",JOptionPane.ERROR_MESSAGE, null);
                 }
 	    	}
 	    	while(true);
@@ -505,13 +515,15 @@ public final class ApplicationLauncher
 		 for(Point p:points)
 		  {
 			JToggleButton jtb=array[p.x][p.y];
-			jtb.setBackground(alive_c);
-			jtb.setText("ALIVE");
+			//jtb.setBackground(alive_c);
+			//jtb.setText("ALIVE");
+			jtb.doClick();
 		   }
 		 }
 		};
 		t.start();
 	}
+	
 	
 //End of class	
 }
