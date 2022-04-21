@@ -256,6 +256,10 @@ public final class CellSystem
 	 system_cont=false;//system will no longer continue as cells from two different generations are all equal
 	 return true;
  }
- 
+ //This method sets the value of canSystemCont
+ public void setSystemContinue(boolean value)
+ {
+	 this.system_cont=value;
+ }
 
 }//End of class
