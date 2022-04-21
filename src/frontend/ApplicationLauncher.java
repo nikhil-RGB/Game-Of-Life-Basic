@@ -45,7 +45,7 @@ public final class ApplicationLauncher
 	public static Border bord=new RoundedBorder(6);
 	
 	//standard font
-	public static Font font=new Font("SansSerif",Font.BOLD,14);
+	public static Font font=new Font("SansSerif",Font.BOLD,13);
     
 	//static initialization block
 	static
@@ -124,9 +124,13 @@ public final class ApplicationLauncher
 		gc3.gridy=0;
 		gc3.weightx=0.4;
 		GridBagConstraints gc4=new GridBagConstraints();
-		gc3.gridx=3;
-		gc3.gridy=0;
-		gc3.weightx=0.4;
+		gc4.gridx=3;
+		gc4.gridy=0;
+		gc4.weightx=0.4;
+		GridBagConstraints gc5=new GridBagConstraints();
+		gc5.gridx=4;
+		gc5.gridy=0;
+		gc5.weightx=0.4;
 		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
@@ -170,8 +174,9 @@ public final class ApplicationLauncher
         
         JButton ftp=new JButton("Force stop System");
         ftp.setFont(font);
+        ftp.setForeground(Color.WHITE);
+        ftp.setBackground(Color.BLACK);
         ftp.setBorder(bord);
-        ftp.setBackground(Color.GRAY);
         ftp.addActionListener((ev)->
         {
         	CellSystem obs=b.getCellSystem();
@@ -185,6 +190,7 @@ public final class ApplicationLauncher
         main_p.add(jbc,gc2);
         main_p.add(jcab,gc3);
         main_p.add(ftp, gc4);
+        main_p.add(Box.createRigidArea(new Dimension(20,20)),gc5);
         
         //set associated text components to JPanel
         b.setAssociatedTextComponents(new JComponent[] {jlab});
