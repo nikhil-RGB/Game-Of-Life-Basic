@@ -123,6 +123,10 @@ public final class ApplicationLauncher
 		gc3.gridx=2;
 		gc3.gridy=0;
 		gc3.weightx=0.4;
+		GridBagConstraints gc4=new GridBagConstraints();
+		gc3.gridx=3;
+		gc3.gridy=0;
+		gc3.weightx=0.4;
 		final CellSystem control=b.getCellSystem();//control CellSYstem for current board
 		JPanel jpan=new JPanel();//panel holder for 
 		jpan.setLayout(new BoxLayout(jpan,BoxLayout.X_AXIS));//this panel will be used to hold components which allow progress to the next generation
@@ -163,12 +167,24 @@ public final class ApplicationLauncher
 	    jpan.add(jbc);
         jpan.add(Box.createRigidArea(new Dimension(5,15)));
         jpan.add(jcab);
+        
+        JButton ftp=new JButton("Force stop System");
+        ftp.setFont(font);
+        ftp.setBorder(bord);
+        ftp.setBackground(Color.GRAY);
+        ftp.addActionListener((ev)->
+        {
+        	CellSystem obs=b.getCellSystem();
+        	if(!obs.canSystemContinue())
+        	{return;}
+        	obs.setSystemContinue(false);
+        });
         //jpan now contains all control/responsive components
         //Now, arrange components in main_panel
         main_p.add(jlab,gc1);
         main_p.add(jbc,gc2);
         main_p.add(jcab,gc3);
-        
+        main_p.add(ftp, gc4);
         
         //set associated text components to JPanel
         b.setAssociatedTextComponents(new JComponent[] {jlab});
@@ -524,7 +540,6 @@ public final class ApplicationLauncher
 		};
 		t.start();
 	}
-	
 	
 //End of class	
 }
