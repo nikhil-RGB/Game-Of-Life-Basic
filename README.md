@@ -35,6 +35,17 @@ Of course, these numbers can be modified by the user.
 <br>
 Using this well-defined ruleset, the state of each cell is calculated based off the states of it's **8 adjacent cells**,<br>
 but none of the states are updated until the new state is calculated for each cell in the board. Once the new state is calculated for each<br>
-cell in the board, the entire board is updated as a whole, and the **generation count** is updated.<br>
+cell in the board, the entire board is updated as a whole, and the <strong>generation count</strong> is updated.
+
+<br>
 Multiple generations later, the board either gains stability/all the cells die/infinite growth ocuurs due to looping conditions.<br/>
+
+## How to Launch:
+ 
+- Install the latest release of "Game-of-Life" from the releases section, it should be a .jar file.
+- To run this file, you will need to have [JAVA 8/9](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html) installed on your system
+- Once JAVA is set up on your system, launch the jar file with a double click!
 Check the releases section to download the .jar file to run the app.
+
+
+
