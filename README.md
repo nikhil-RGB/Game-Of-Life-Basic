@@ -1,21 +1,40 @@
 # Game-Of-Life-Basic
+<br/>
 
-
-
-
-A basic representation of the 0-player game, "Game-of-Life", a simple example of basic cellular automata.
 ![image](https://user-images.githubusercontent.com/68727041/163131982-009eb94a-ec54-4041-8c8b-393ea3a7b6f2.png)
 
+<br/>
+
+## Purpose:
+This application can be used to view and control a simplified configuration from the 0-player game, <br>
+[**"Connway's Game-of-Life"**](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life), a simple example of basic [**Cellular Automata**](https://mathworld.wolfram.com/CellularAutomaton.html#:~:text=A%20cellular%20automaton%20is%20a,many%20time%20steps%20as%20desired)
+<br/>
 A cellular automaton is a discrete model of computation studied in automata theory. Cellular automata are also called cellular spaces, tessellation automata, homogeneous structures, cellular structures, tessellation structures, and iterative arrays.<br>
-For more information on cellular automata, [click here](https://mathworld.wolfram.com/CellularAutomaton.html#:~:text=A%20cellular%20automaton%20is%20a,many%20time%20steps%20as%20desired.)<br>
 Game-of-Life is a 0-player game which demonstrates this automata concept.<br>
-For more information on Game-of-Life, [Click here](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+This Application is a Desktop GUI application and can run on any computer system with a JRE.
 <br>
-In newer releases, users can define a basic initial configuration,<br> 
+
+## Project Details:
+
+The Game-of-Life board is generally infinite, with the bottom row wrapping around to the top row, and the right-most column wrapping around to the left-most column.<br>
+Each cell will have two states- DEAD or ALIVE.
+A cell switches states every generation, and calculates it's state based on the 8 adjacent cells around it. 
+Users can define a basic initial configuration, choosing which cells should be alive initially, and which cells should be dead.<br> 
 The default rules followed are:<br>
- Less than 2 cells are alive or(in the adjacent 8 cells)<br>
- Greater than 5 cells alive , cell in question dies. <br>
-If exactly 3 cells out of the adjacent 8 cells are alive, cell in question will come back to life if it is dead.<br>
-Newer releases allow the user to define a different color set for alive/dead cells(rather than the default gray=dead <br>
-and white=alive ruleset)- it also allows the user to change the default game of life rules to allow for more pattern variations.
+In the 8 adjacent cells surrounding the cell in question, let x be the number of cells which are in the ALIVE state: <br/>
+ 
+   
+| Condition        | Result           
+| ------------- |:-------------:| 
+| x<2 or x>5      | Cell in question dies | 
+| x==3      | Cell in question dies      |   
+| Any other condition | Cell retains previous state      | 
+
+<br/>
+Of course, these numbers can be modified by the user.
+<br>
+Using this well-defined ruleset, the state of each cell is calculated based off the states of it's **8 adjacent cells**,<br>
+but none of the states are updated until the new state is calculated for each cell in the board. Once the new state is calculated for each<br>
+cell in the board, the entire board is updated as a whole, and the **generation count** is updated.<br>
+Multiple generations later, the board either gains stability/all the cells die/infinite growth ocuurs due to looping conditions.<br/>
 Check the releases section to download the .jar file to run the app.
